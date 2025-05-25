@@ -1,0 +1,29 @@
+COLE_BILINGUE,COLE_CALENDARIO,COLE_CARACTER,COLE_GENERO,ESTU_DEPTO_RESIDE,FAMI_ESTRATOVIVIENDA,FAMI_PERSONASHOGAR,FAMI_TIENEAUTOMOVIL,FAMI_TIENECOMPUTADOR,FAMI_TIENEINTERNET,FAMI_TIENELAVADORA,EDAD,COLE_JORNADA_GRUPO,EDU_PADRES_MAX
+N,B,TÉCNICO/ACADÉMICO,MASCULINO,bogota,Estrato 4,dos a cuatro,Si,Si,Si,Si,17.0,COMPLETA,Postgrado
+S,A,TÉCNICO,MIXTO,valle,Estrato 3,,No,No,No,No,16.0,MAÑANA,Profesional
+,,ACADÉMICO,FEMENINO,risaralda,Estrato 6,cinco o más,,,,,19.0,TARDE,Técnica/Tecnológica
+,,,,cauca,Estrato 2,Una,,,,,20.0,NOCHE/SABATINA,Secundaria
+,,,,caldas,Estrato 5,,,,,,18.0,,Primaria
+,,,,narino,Estrato 1,,,,,,15.0,,
+,,,,cundinamarca,,,,,,,25.0,,
+,,,,antioquia,,,,,,,21.0,,
+,,,,atlantico,,,,,,,28.0,,
+,,,,la guajira,,,,,,,14.0,,
+,,,,bolivar,,,,,,,23.0,,
+,,,,santander,,,,,,,27.0,,
+,,,,cordoba,,,,,,,22.0,,
+,,,,cesar,,,,,,,24.0,,
+,,,,quindio,,,,,,,30.0,,
+,,,,magdalena,,,,,,,26.0,,
+,,,,otro,,,,,,,29.0,,
+,,,,norte santander,,,,,,,12.0,,
+,,,,sucre,,,,,,,13.0,,
+,,,,caqueta,,,,,,,,,
+,,,,boyaca,,,,,,,,,
+,,,,choco,,,,,,,,,
+,,,,tolima,,,,,,,,,
+,,,,meta,,,,,,,,,
+,,,,huila,,,,,,,,,
+,,,,putumayo,,,,,,,,,
+,,,,arauca,,,,,,,,,
+,,,,casanare,,,,,,,,,
