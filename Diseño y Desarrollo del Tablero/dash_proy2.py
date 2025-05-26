@@ -5,6 +5,12 @@ import pandas as pd
 import numpy as np
 import random
 
+from tensorflow.keras.models import load_model
+
+# Cargar el modelo entrenado
+modelo = load_model("modelo_binario.h5")
+
+
 # Leer archivo
 df_opciones = pd.read_csv("opciones_respuesta.csv")
 df_posibles = {
@@ -160,29 +166,41 @@ def mostrar_pagina(pathname):
     [State(var, 'value') for var in df_posibles]
 )
 
-
 def predecir_puntaje(n_clicks, *vals):
     if n_clicks == 0:
         return ""
 
-    # Selección aleatoria de categoría
-    categoria = random.choice(["Bajo", "Medio", "Alto"])
+    try:
+        columnas = list(df_posibles.keys())
+        entrada_dict = {col: [val] for col, val in zip(columnas, vals)}
+        df_entrada = pd.DataFrame(entrada_dict)
 
-    # Definimos mensaje y color según la categoría
-    if categoria == "Alto":
-        color = "success"
-    elif categoria == "Medio":
-        color = "warning"
-    else:  # Bajo
-        color = "danger"
+        # NOTA: Si el modelo fue entrenado con dummies o transformación adicional,
+        # se debe hacer aquí también, por ahora se asume que es directo:
+        # df_entrada = preprocesador.transform(df_entrada)
 
-    return dbc.Card([
-        dbc.CardBody([
-            html.H4("📈 Desempeño Estimado", className="card-title"),
-            html.H2(categoria, className=f"text-{color}", style={'fontSize': '48px'}),
-            html.P(className="card-text")
-        ])
-    ], className="mx-auto", style={"maxWidth": "400px"})
+        # Convertir a numpy array para el modelo
+        X = df_entrada.values
+
+        # Hacer la predicción
+        pred = modelo.predict(X)
+
+        # Determinar categoría: 0 = Bajo, 1 = Alto (binaria)
+        clase_predicha = int(np.round(pred[0][0]))
+        etiquetas = ["Bajo", "Alto"]
+        resultado = etiquetas[clase_predicha]
+
+        colores = {"Bajo": "danger", "Alto": "success"}
+
+        return dbc.Card([
+            dbc.CardBody([
+                html.H4("📈 Desempeño Estimado", className="card-title"),
+                html.H2(resultado, className=f"text-{colores[resultado]}", style={'fontSize': '48px'}),
+            ])
+        ], className="mx-auto", style={"maxWidth": "400px"})
+
+    except Exception as e:
+        return dbc.Alert(f"Error en la predicción: {str(e)}", color="danger")
 
 
 if __name__ == '__main__':
