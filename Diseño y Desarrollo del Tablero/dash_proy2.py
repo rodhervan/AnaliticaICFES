@@ -27,7 +27,7 @@ app = dash.Dash(
     ],
     suppress_callback_exceptions=True
 )
-app.title = "Predicción Puntaje ICFES"
+app.title = "Predicción desempeño en las pruebas ICFES"
 
 # Diccionario para renombrar columnas a un lenguaje más natural
 nombre_natural = {
@@ -56,7 +56,10 @@ def crear_grupo(nombre_grupo, icono, variables):
                 html.Label(nombre_natural.get(var, var), className="fw-bold"),
                 dcc.Dropdown(
                     id=var,
-                    options=[{"label": str(val), "value": val} for val in df_posibles[var]],
+                    options=[
+                        {"label": "Sí" if val == "S" else "No" if val == "N" else str(val), "value": val}
+                        for val in df_posibles[var]
+                        ],
                     value=df_posibles[var][0],
                     className="mb-3"
                 )
@@ -73,7 +76,7 @@ layout_prediccion = html.Div([
             'justifyContent': 'space-between',
             'alignItems': 'center'
         }, children=[
-            html.H2("🎓 Predicción del Puntaje Global ICFES", style={'color': 'white', 'margin': 0}),
+            html.H2("🎓 Predicción desempeño en las pruebas ICFES", style={'color': 'white', 'margin': 0}),
             html.Img(src='/assets/icfes.png', style={'height': '150px'})
         ]),
 
@@ -97,6 +100,8 @@ layout_prediccion = html.Div([
             html.P(
                 "Este dashboard permite predecir el desempeño en las pruebas ICFES a partir de variables socioeconómicas y características del entorno familiar y educativo del estudiante. "
                 "La predicción estima el desempeño en categorías como alto, medio o bajo, con base en la información seleccionada por el usuario."
+                " Por favor, complete todos los campos requeridos para obtener una predicción sobre el rendimiento del estudiante."
+                " Además, en la pestaña Influencia se incluye un análisis de las variables más influyentes en la predicción."            
             )
         ]),
 
@@ -107,7 +112,7 @@ layout_prediccion = html.Div([
             crear_grupo("Información del Estudiante", "bi-person", grupo_estudiante),
 
             html.Div(className="text-center my-4", children=[
-                html.Button("🔍 Predecir Puntaje", id="btn-pred", n_clicks=0, className="btn btn-primary btn-lg"),
+                html.Button("🔍 Predecir Rendimiento", id="btn-pred", n_clicks=0, className="btn btn-primary btn-lg"),
                 html.Div(id="output-pred", className="mt-4")
             ])
         ], fluid=True),
@@ -127,7 +132,7 @@ app.layout = html.Div(style={'backgroundColor': '#e6f0fa', 'minHeight': '100vh',
     dbc.NavbarSimple(
         children=[
             dbc.NavItem(dbc.NavLink("Predicción", href="/")),
-            dbc.NavItem(dbc.NavLink("Explicación SHAP", href="/shap")),
+            dbc.NavItem(dbc.NavLink("Influencia", href="/shap")),
         ],
         brand="Dashboard ICFES",
         color="primary",
